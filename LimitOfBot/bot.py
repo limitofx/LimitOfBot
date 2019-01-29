@@ -28,7 +28,7 @@ words_store = "words.txt"
 idfile = "latest.id"
 chain = None
 latestid = 0
-account_name = "LimitOfBot"
+account_name = "placeholder"
 #bot reads all non retweeted statuses it gets from people it follows
 laststatus = ""
 
@@ -55,6 +55,7 @@ def initialize():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
+    accountName = tweepy.API.me().screen_name
 
     #setup id file and event scheduler
     latestidfile = open(idfile, 'r+')
