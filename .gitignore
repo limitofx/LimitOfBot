@@ -1,0 +1,9 @@
+**/words.*
+/latest.id
+**/logs
+**/__pycache__
+/results.txt
+**/.coverage
+/.idea
+**/*~
+**/access.py
