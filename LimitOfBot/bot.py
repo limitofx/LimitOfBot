@@ -55,7 +55,7 @@ def initialize():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth)
-    accountName = tweepy.API.me().screen_name
+    account_name = api.me().screen_name
 
     #setup id file and event scheduler
     latestidfile = open(idfile, 'r+')
