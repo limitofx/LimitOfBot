@@ -29,5 +29,5 @@ class Scheduler:
             time.sleep(offset)
         func(args)
         logging.info("Performed " + func.__name__ + " event!")
-        logging.info("Events in queue: " + str(len(events)))
+        logging.info("Events in queue: " + str(len(self.events)))
         del self.events[0]
