@@ -3,7 +3,7 @@ import time, signal, sys, datetime
 import logging
 import random
 import pdb
-from markov2chain import MarkovTextGenerator
+from markov2chain import MarkovTextGenerator2Node
 #create file in this directory with the twitter keys and tokens
 from access import consumer_key, consumer_secret, access_token, access_token_secret
 from scheduler import Scheduler
