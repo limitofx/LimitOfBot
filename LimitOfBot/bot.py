@@ -3,7 +3,7 @@ import time, signal, sys, datetime
 import logging
 import random
 import pdb
-from markov import MarkovTextGenerator
+from markov2chain import MarkovTextGenerator
 #create file in this directory with the twitter keys and tokens
 from access import consumer_key, consumer_secret, access_token, access_token_secret
 from scheduler import Scheduler
@@ -51,7 +51,7 @@ def main():
 
 def initialize():
     #create chain and api obj
-    chain = MarkovTextGenerator(words_store)
+    chain = MarkovTextGenerator2Node(words_store)
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     api = tweepy.API(auth, retry_count=10, retry_delay=5, retry_errors=set([503]))
