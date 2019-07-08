@@ -36,8 +36,6 @@ class OuterNode(InnerNode):
         for next in self.nextstate:
             if next.count >= val:
                 return next
-            print("val " + str(val))
-            print("count " + str(next.count))
             val -= next.count
         #pdb.set_trace()
         raise RuntimeError("NODE COUNTS INCORRECT")
