@@ -54,7 +54,7 @@ def initialize():
     chain = MarkovTextGenerator(words_store)
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
-    api = tweepy.API(auth)
+    api = tweepy.API(auth, retry_count=10, retry_delay=5, retry_errors=set([503]))
     account_name = api.me().screen_name
 
     #setup id file and event scheduler
@@ -120,16 +120,19 @@ def createTweet(args):
     api = args[1]
     events = args[2]
     status = chain.generate(240, random.randint)
-    if (status == laststatus):
-        status = chain.generate(240, random.randint)
-    try:
-        api.update_status(status)
-        laststatus = status
-    except Exception as e:
-        logging.error("status: " + status + "\n")
-        logging.error("laststatus: " + laststatus + "\n")
-        logging.error("error : " + str(e) + "\n")
-        terminate(None, None)
+    while True:
+        try:
+            api.update_status(status)
+            laststatus = status
+            break
+        except tweepy.TweepError as e:
+            if TweepError.message[0]['code'] != 187:
+                logging.error("error: " + str(e) + "\n")
+                terminate()
+            logging.error("status: " + status + "\n")
+            logging.error("laststatus: " + laststatus + "\n")
+            logging.error("error : " + str(e) + "\n")
+            status = chain.generate(240, random.randint)
     events.addEvent(1800, createTweet, [chain, api, events])
     logging.info("send tweets at " + str(datetime.datetime.now()))
 
