@@ -126,7 +126,7 @@ def createTweet(args):
             laststatus = status
             break
         except tweepy.TweepError as e:
-            if TweepError.message[0]['code'] != 187:
+            if e.args[0][0]['code'] != 187: #if it is not a duplicate status error, terminate, don't know how to handle
                 logging.error("error: " + str(e) + "\n")
                 terminate()
             logging.error("status: " + status + "\n")
